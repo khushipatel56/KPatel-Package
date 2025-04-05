@@ -1,0 +1,16 @@
+Package: KPatel
+Title: Statistical and Machine Learning Tools for Data Analysis
+Version: 0.0.0.9000
+Authors@R: c(
+  person("Khushi", "Patel", email = "khushipatel7150@gmail.com", role = c("aut", "cre"))
+)
+Description: To make data processing and visualization more efficient, the 
+    KPatel package offers statistical and machine learning methods. It has 
+    features for categorization, regression modeling, hypothesis testing, 
+    association rule mining, and exploratory data analysis. The package is made 
+    to help professionals, researchers, and students carry out reliable 
+    data-driven studies quickly and effectively in the R environment.
+Depends: R (>= 3.1.2)
+Imports: ggplot2, dplyr, tidyr, arules, car, caret, randomForest
+License: CC0
+LazyData: true

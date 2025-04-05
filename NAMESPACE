@@ -1,0 +1,22 @@
+# Exporting functions
+export(regression_summary)
+export(classification_model)
+export(hypothesis_test)
+export(association_rules)
+export(eda_summary)
+export(kmodel)
+
+# Importing required packages
+import(ggplot2)
+import(dplyr)
+import(tidyr)
+import(arules)
+import(car)
+import(caret)
+import(randomForest)
+
+# Register S3 methods (if needed)
+S3method(print, kmodel)
+
+# Optionally, export other internal functions if needed
+# export(internal_function)

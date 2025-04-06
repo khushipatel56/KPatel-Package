@@ -11,6 +11,14 @@ Description: To make data processing and visualization more efficient, the
     to help professionals, researchers, and students carry out reliable 
     data-driven studies quickly and effectively in the R environment.
 Depends: R (>= 3.1.2)
-Imports: ggplot2, dplyr, tidyr, arules, car, caret, randomForest
+Imports: 
+    ggplot2, 
+    dplyr, 
+    tidyr, 
+    arules, 
+    car, 
+    caret, 
+    randomForest
 License: CC0
+Encoding: UTF-8
 LazyData: true

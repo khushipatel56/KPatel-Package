@@ -1,0 +1,35 @@
+---
+title: "KPatel Package: Example with Iris Dataset"
+author: "Khushi Patel"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(KPatel)
+library(ggplot2)
+
+head(iris)
+summary(iris$Sepal.Length)
+
+# Define bins and labels
+bins <- c(4.0, 5.5, 6.5, 8.0)
+labels <- c("Short", "Medium", "Long")
+
+# Apply the function
+iris_categorized <- categorize_data(
+  data = iris,
+  column = "Sepal.Length",
+  bins = bins,
+  labels = labels
+)
+
+# Show the new column
+head(iris_categorized[, c("Sepal.Length", "Sepal.Length_category")])
+
+ggplot(iris_categorized, aes(x = Sepal.Length_category, fill = Species)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Sepal Length Categories by Species",
+       x = "Category", y = "Count") +
+  theme_minimal()

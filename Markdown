@@ -1,0 +1,96 @@
+title: "KPatel Package Function Documentation"
+author: "Khushi Patel"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Introduction
+
+The `KPatel` package offers effective statistical and machine learning methods to simplify data analysis. Researchers, professionals, and students can all benefit from this package's ability to streamline fundamental activities, including data categorization, regression modeling, hypothesis testing, and association rule mining. Users can easily and effectively carry out complicated data-driven studies in the R environment by utilizing `KPatel`.
+
+This documentation offers a thorough explanation of the primary features of the package, including their inputs, outputs, and useful examples. The intention is to assist users in comprehending how to successfully incorporate these technologies into their workflows.
+
+## Installation
+
+To install and load the package, use:
+
+```r
+# Install from GitHub (once uploaded)
+# devtools::install_github("khushipatel56/KPatel")
+
+library(KPatel)
+```
+
+## Functions
+
+### **1. `categorize_data()`**
+**Purpose:** Categorizes numerical data into bins based on predefined intervals.
+
+**Inputs:**
+- `data` (data frame): The dataset containing numeric variables.
+- `column` (string): The name of the column to categorize.
+- `bins` (numeric vector): The breakpoints for categorization.
+- `labels` (character vector): Labels for the categories.
+
+**Output:** A modified dataset with an additional categorical column.
+
+**Example Usage:**
+```r
+categorized_df <- categorize_data(mtcars, "mpg", bins = c(10, 15, 20, 30), 
+                                  labels = c("Low", "Medium", "High"))
+head(categorized_df)
+```
+
+---
+
+### **2. `train_model()`**
+**Purpose:** Trains a machine learning model using the specified algorithm.
+
+**Inputs:**
+- `formula` (formula): Model formula.
+- `data` (data frame): Training dataset.
+- `method` (string): Model type (e.g., `"rf"` for random forest, `"lm"` for linear model).
+- `tuneGrid` (optional, data frame): Grid of hyperparameters for tuning.
+
+**Output:** A trained model object.
+
+**Example Usage:**
+```r
+model <- train_model(mpg ~ ., mtcars, method = "rf")
+print(model)
+```
+
+---
+
+### **3. `test_hypothesis()`**
+**Purpose:** Performs hypothesis testing (e.g., t-test, chi-square test) on the dataset.
+
+**Inputs:**
+- `data` (data frame): The dataset.
+- `var1`, `var2` (string): The variables for the test.
+- `test_type` (string): `"t.test"`, `"chisq.test"`, etc.
+
+**Output:** A summary of the test results.
+
+**Example Usage:**
+```r
+result <- test_hypothesis(mtcars, "mpg", "hp", test_type = "t.test")
+print(result)
+```
+
+---
+
+# Challenges & Improvements
+
+During the development of the `KPatel` package, several challenges were encountered:
+- **Optimizing categorical binning** for diverse datasets.
+- **Enhancing model selection flexibility** to accommodate different algorithms.
+- **Ensuring robust hypothesis testing** across various data types.
+
+The anticipated improvements include expanding the range of machine learning models, boosting parameter tuning options, and increasing processing efficiency.
+
+---
+
+# Conclusion
+
+The `KPatel` package offers strong and intuitive data analysis capabilities to improve statistical and machine learning operations. Its main features and useful uses are described in this documentation. In order to make the package even more effective and flexible to meet a greater variety of data analysis requirements, future improvements will concentrate on extending its capabilities.

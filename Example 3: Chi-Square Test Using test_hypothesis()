@@ -1,0 +1,25 @@
+---
+title: "KPatel Package: Chi-Square Test Example"
+author: "Khushi Patel"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(KPatel)
+library(dplyr)
+
+mtcars_clean <- mtcars %>%
+  mutate(cyl = as.factor(cyl),
+         gear = as.factor(gear))
+
+head(mtcars_clean)
+
+chi_result <- test_hypothesis(
+  data = mtcars_clean,
+  var1 = "cyl",
+  var2 = "gear",
+  test_type = "chisq.test"
+)
+
+print(chi_result)

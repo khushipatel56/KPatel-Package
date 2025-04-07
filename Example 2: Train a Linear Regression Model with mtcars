@@ -1,0 +1,41 @@
+---
+title: "KPatel Package: Train Model Example"
+author: "Khushi Patel"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(KPatel)
+library(ggplot2)
+
+head(mtcars)
+summary(mtcars)
+
+# Train the model
+lm_model <- train_model(
+  formula = mpg ~ .,
+  data = mtcars,
+  method = "lm"
+)
+
+# Print model summary
+summary(lm_model$finalModel)
+
+# Make predictions
+predictions <- predict(lm_model, newdata = mtcars)
+
+# Create comparison data
+results <- data.frame(
+  Actual = mtcars$mpg,
+  Predicted = predictions
+)
+
+# Plot actual vs predicted
+ggplot(results, aes(x = Actual, y = Predicted)) +
+  geom_point(color = "blue", size = 3) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Actual vs Predicted MPG",
+       x = "Actual MPG", y = "Predicted MPG") +
+  theme_minimal()

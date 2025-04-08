@@ -1,25 +1,61 @@
 ---
-title: "KPatel Package: Chi-Square Test Example"
+title: "KPatel Package: Chi-Square Test Example (S4)"
 author: "Khushi Patel"
 date: "`r Sys.Date()`"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
+# Load necessary libraries
 library(KPatel)
 library(dplyr)
 
+# Prepare data
 mtcars_clean <- mtcars %>%
   mutate(cyl = as.factor(cyl),
          gear = as.factor(gear))
 
 head(mtcars_clean)
 
-chi_result <- test_hypothesis(
-  data = mtcars_clean,
-  var1 = "cyl",
-  var2 = "gear",
-  test_type = "chisq.test"
-)
+# Perform S4 chi-square test
+chi_result <- new("HypothesisTestResult", 
+                  data = mtcars_clean, 
+                  var1 = "cyl", 
+                  var2 = "gear", 
+                  test_type = "chisq.test")
 
-print(chi_result)
+# Show result using show method for the class
+show(chi_result)
+
+Make sure this part exists inside your package (`R/hypothesis_test_s4.R`):
+
+```r
+# Define the S4 class
+setClass("HypothesisTestResult",
+         slots = c(
+           data = "data.frame",
+           var1 = "character",
+           var2 = "character",
+           test_type = "character",
+           result = "ANY"
+         ))
+
+# Define initialize method
+setMethod("initialize", "HypothesisTestResult",
+          function(.Object, data, var1, var2, test_type) {
+            .Object@data <- data
+            .Object@var1 <- var1
+            .Object@var2 <- var2
+            .Object@test_type <- test_type
+            
+            tbl <- table(data[[var1]], data[[var2]])
+            .Object@result <- chisq.test(tbl)
+            
+            .Object
+          })
+
+# Define show method
+setMethod("show", "HypothesisTestResult", function(object) {
+  cat("Chi-Square Test Result for", object@var1, "vs", object@var2, "\n\n")
+  print(object@result)
+})

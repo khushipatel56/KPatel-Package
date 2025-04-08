@@ -1,4 +1,3 @@
----
 title: "KPatel Package: Example with Iris Dataset"
 author: "Khushi Patel"
 date: "`r Sys.Date()`"
@@ -10,6 +9,7 @@ output: html_document
 library(KPatel)
 library(ggplot2)
 
+# Show basic iris data
 head(iris)
 summary(iris$Sepal.Length)
 
@@ -17,7 +17,7 @@ summary(iris$Sepal.Length)
 bins <- c(4.0, 5.5, 6.5, 8.0)
 labels <- c("Short", "Medium", "Long")
 
-# Apply the function
+# Apply the categorize_data function
 iris_categorized <- categorize_data(
   data = iris,
   column = "Sepal.Length",
@@ -25,7 +25,7 @@ iris_categorized <- categorize_data(
   labels = labels
 )
 
-# Show the new column
+# View categorized result
 head(iris_categorized[, c("Sepal.Length", "Sepal.Length_category")])
 
 ggplot(iris_categorized, aes(x = Sepal.Length_category, fill = Species)) +
@@ -33,3 +33,29 @@ ggplot(iris_categorized, aes(x = Sepal.Length_category, fill = Species)) +
   labs(title = "Sepal Length Categories by Species",
        x = "Category", y = "Count") +
   theme_minimal()
+
+# Define an S3 constructor for a Sepal Summary object
+create_k_summary <- function(x) {
+  structure(list(
+    mean = mean(x),
+    sd = sd(x),
+    min = min(x),
+    max = max(x)
+  ), class = "k_summary")
+}
+
+# Define the S3 print method
+print.k_summary <- function(obj) {
+  cat("K Summary for Numeric Vector\n")
+  cat("----------------------------\n")
+  cat("Mean:", obj$mean, "\n")
+  cat("SD  :", obj$sd, "\n")
+  cat("Min :", obj$min, "\n")
+  cat("Max :", obj$max, "\n")
+}
+
+# Create a summary object for Sepal.Length
+sepal_summary <- create_k_summary(iris$Sepal.Length)
+
+# Print the summary
+print(sepal_summary)

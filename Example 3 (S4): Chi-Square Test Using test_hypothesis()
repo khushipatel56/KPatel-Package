@@ -17,20 +17,17 @@ mtcars_clean <- mtcars %>%
 
 head(mtcars_clean)
 
-# Perform S4 chi-square test
+# Perform S4 Chi-Square Test using the HypothesisTestResult class from KPatel package
 chi_result <- new("HypothesisTestResult", 
                   data = mtcars_clean, 
                   var1 = "cyl", 
                   var2 = "gear", 
                   test_type = "chisq.test")
 
-# Show result using show method for the class
+# Show result using the show method for the class
 show(chi_result)
 
-Make sure this part exists inside your package (`R/hypothesis_test_s4.R`):
-
-```r
-# Define the S4 class
+# Define the S4 class for hypothesis testing results
 setClass("HypothesisTestResult",
          slots = c(
            data = "data.frame",
@@ -40,7 +37,7 @@ setClass("HypothesisTestResult",
            result = "ANY"
          ))
 
-# Define initialize method
+# Define the initialize method for the S4 class
 setMethod("initialize", "HypothesisTestResult",
           function(.Object, data, var1, var2, test_type) {
             .Object@data <- data
@@ -48,14 +45,18 @@ setMethod("initialize", "HypothesisTestResult",
             .Object@var2 <- var2
             .Object@test_type <- test_type
             
+            # Create the contingency table for chi-square test
             tbl <- table(data[[var1]], data[[var2]])
+            
+            # Perform the chi-square test
             .Object@result <- chisq.test(tbl)
             
             .Object
           })
 
-# Define show method
+# Define the show method for displaying chi-square test results
 setMethod("show", "HypothesisTestResult", function(object) {
   cat("Chi-Square Test Result for", object@var1, "vs", object@var2, "\n\n")
   print(object@result)
 })
+

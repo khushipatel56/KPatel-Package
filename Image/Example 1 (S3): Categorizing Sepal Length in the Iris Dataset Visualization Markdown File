@@ -1,0 +1,87 @@
+---
+title: "KPatel Package: Example with Iris Dataset"
+author: "Khushi Patel"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Major Steps in the Code
+
+1. **Loading Libraries**:
+    - The `KPatel` and `ggplot2` libraries are loaded to use the functions and plotting capabilities.
+  
+    ```{r setup, include=FALSE}
+    library(KPatel)
+    library(ggplot2)
+    ```
+
+2. **Exploring the Iris Dataset**:
+    - The basic structure and summary statistics of the `iris` dataset are displayed.
+    
+    ```{r}
+    head(iris)
+    summary(iris$Sepal.Length)
+    ```
+
+3. **Categorizing Sepal Length**:
+    - The `categorize_data` function from the `KPatel` package is used to categorize the `Sepal.Length` column into bins (`Short`, `Medium`, `Long`) based on specified thresholds.
+    
+    ```{r}
+    bins <- c(4.0, 5.5, 6.5, 8.0)
+    labels <- c("Short", "Medium", "Long")
+    
+    iris_categorized <- categorize_data(
+      data = iris,
+      column = "Sepal.Length",
+      bins = bins,
+      labels = labels
+    )
+    
+    head(iris_categorized[, c("Sepal.Length", "Sepal.Length_category")])
+    ```
+
+4. **Visualizing Sepal Length Categories by Species**:
+    - A bar plot is created to visualize the distribution of Sepal Length categories by the species of the flowers.
+    
+    ```{r}
+    ggplot(iris_categorized, aes(x = Sepal.Length_category, fill = Species)) +
+      geom_bar(position = "dodge") +
+      labs(title = "Sepal Length Categories by Species",
+           x = "Category", y = "Count") +
+      theme_minimal()
+    ```
+
+5. **Creating a Custom S3 Constructor for Sepal Summary**:
+    - An S3 constructor is defined to summarize the `Sepal.Length` data, including the mean, standard deviation, minimum, and maximum values.
+    
+    ```{r}
+    create_k_summary <- function(x) {
+      structure(list(
+        mean = mean(x),
+        sd = sd(x),
+        min = min(x),
+        max = max(x)
+      ), class = "k_summary")
+    }
+    ```
+
+6. **Printing the Sepal Summary**:
+    - A custom print method for the `k_summary` class is created to display the summary of the `Sepal.Length` column.
+    
+    ```{r}
+    print.k_summary <- function(obj) {
+      cat("K Summary for Numeric Vector\n")
+      cat("----------------------------\n")
+      cat("Mean:", obj$mean, "\n")
+      cat("SD  :", obj$sd, "\n")
+      cat("Min :", obj$min, "\n")
+      cat("Max :", obj$max, "\n")
+    }
+    
+    sepal_summary <- create_k_summary(iris$Sepal.Length)
+    print(sepal_summary)
+    ```
+
+---
+
+This markdown outlines the major steps taken in the R code, explaining each part briefly and providing the relevant code blocks. You can copy and paste this directly into a markdown file. Let me know if you need any modifications!

@@ -1,0 +1,45 @@
+---
+title: "KPatel Package: Train Model Example (S4)"
+author: "Khushi Patel"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(KPatel)
+library(ggplot2)
+
+# Display initial dataset and summary
+head(mtcars)
+summary(mtcars)
+
+# Train the model (Linear Regression)
+lm_model <- train_model(
+  formula = mpg ~ .,
+  data = mtcars,
+  method = "lm" # Other options might include "rf", "svmLinear", etc.
+)
+
+# Show the model summary
+summary(lm_model@model$finalModel)
+
+# Make predictions on the training data
+predictions <- predict(lm_model, newdata = mtcars)
+
+# Combine actual and predicted values into a dataframe
+results <- data.frame(
+  Actual = mtcars$mpg,
+  Predicted = predictions
+)
+
+# Scatter plot of actual vs predicted values
+ggplot(results, aes(x = Actual, y = Predicted)) +
+  geom_point(color = "blue", size = 3) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  labs(
+    title = "Actual vs Predicted MPG",
+    x = "Actual MPG",
+    y = "Predicted MPG"
+  ) +
+  theme_minimal()

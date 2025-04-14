@@ -1,0 +1,78 @@
+---
+title: "KPatel Package: Train Model Example (S4)"
+author: "Khushi Patel"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Steps and Code for Training a Model
+
+1. **Load Necessary Libraries**:
+    - The `KPatel` and `ggplot2` libraries are loaded to access the model training functionality and plotting capabilities.
+  
+    ```{r setup, include=FALSE}
+    library(KPatel)
+    library(ggplot2)
+    ```
+
+2. **Display Initial Dataset and Summary**:
+    - The initial dataset (`mtcars`) and a summary of its features are shown to understand the data.
+    
+    ```{r}
+    head(mtcars)
+    summary(mtcars)
+    ```
+
+3. **Train the Model**:
+    - The `train_model` function from the `KPatel` package is used to train a linear regression model (`lm_model`) on the `mpg` (miles per gallon) variable, using the rest of the features in the `mtcars` dataset.
+    
+    ```{r}
+    lm_model <- train_model(
+      formula = mpg ~ .,
+      data = mtcars,
+      method = "lm" # Other options might include "rf", "svmLinear", etc.
+    )
+    ```
+
+4. **Display the Model Summary**:
+    - The summary of the final linear regression model is shown to examine the model's performance and coefficients.
+    
+    ```{r}
+    summary(lm_model@model$finalModel)
+    ```
+
+5. **Make Predictions on the Training Data**:
+    - Predictions are made on the `mtcars` dataset using the trained model.
+    
+    ```{r}
+    predictions <- predict(lm_model, newdata = mtcars)
+    ```
+
+6. **Combine Actual and Predicted Values**:
+    - A new data frame `results` is created, combining the actual `mpg` values with the predicted ones.
+    
+    ```{r}
+    results <- data.frame(
+      Actual = mtcars$mpg,
+      Predicted = predictions
+    )
+    ```
+
+7. **Plot Actual vs Predicted Values**:
+    - A scatter plot is created to visualize how well the predicted `mpg` values compare to the actual ones. A reference line (`y = x`) is added to show the ideal relationship between actual and predicted values.
+    
+    ```{r}
+    ggplot(results, aes(x = Actual, y = Predicted)) +
+      geom_point(color = "blue", size = 3) +
+      geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+      labs(
+        title = "Actual vs Predicted MPG",
+        x = "Actual MPG",
+        y = "Predicted MPG"
+      ) +
+      theme_minimal()
+    ```
+
+---
+
+This markdown file outlines the steps in the code, explains the major actions taken, and includes the relevant code for training a model using the `KPatel` package in R. You can copy and paste this directly into a markdown file for documentation or presentation purposes. Let me know if you need any further changes!

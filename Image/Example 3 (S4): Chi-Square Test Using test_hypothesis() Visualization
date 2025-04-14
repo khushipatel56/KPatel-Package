@@ -1,0 +1,77 @@
+---
+title: "KPatel Package: Chi-Square Test Example (S4)"
+author: "Khushi Patel"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(KPatel)
+library(dplyr)
+library(ggplot2)
+
+# Prepare data
+mtcars_clean <- mtcars %>%
+  mutate(cyl = as.factor(cyl),
+         gear = as.factor(gear))
+
+head(mtcars_clean)
+
+# Perform S4 Chi-Square Test using the HypothesisTestResult class
+chi_result <- new("HypothesisTestResult", 
+                  data = mtcars_clean, 
+                  var1 = "cyl", 
+                  var2 = "gear", 
+                  test_type = "chisq.test")
+
+# Show result using the show method for the class
+show(chi_result)
+
+# Define the S4 class for hypothesis testing results
+setClass("HypothesisTestResult",
+         slots = c(
+           data = "data.frame",
+           var1 = "character",
+           var2 = "character",
+           test_type = "character",
+           result = "ANY"
+         ))
+
+# Define the initialize method for the S4 class
+setMethod("initialize", "HypothesisTestResult",
+          function(.Object, data, var1, var2, test_type) {
+            .Object@data <- data
+            .Object@var1 <- var1
+            .Object@var2 <- var2
+            .Object@test_type <- test_type
+            
+            # Create the contingency table for chi-square test
+            tbl <- table(data[[var1]], data[[var2]])
+            
+            # Perform the chi-square test
+            .Object@result <- chisq.test(tbl)
+            
+            .Object
+          })
+
+# Define the show method for displaying chi-square test results
+setMethod("show", "HypothesisTestResult", function(object) {
+  cat("Chi-Square Test Result for", object@var1, "vs", object@var2, "\n\n")
+  print(object@result)
+})
+
+# Create the contingency table for visualization
+tbl <- table(mtcars_clean$cyl, mtcars_clean$gear)
+
+# Heatmap of the contingency table
+ggplot(as.data.frame(tbl), aes(x = Var1, y = Var2, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "blue") +
+  labs(
+    title = "Contingency Table Heatmap: cyl vs gear",
+    x = "Number of Cylinders",
+    y = "Number of Gears",
+    fill = "Frequency"
+  ) +
+  theme_minimal()

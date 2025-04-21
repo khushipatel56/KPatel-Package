@@ -75,4 +75,4 @@ output: html_document
 
 ---
 
-This markdown file outlines the steps in the code, explains the major actions taken, and includes the relevant code for training a model using the `KPatel` package in R. You can copy and paste this directly into a markdown file for documentation or presentation purposes. Let me know if you need any further changes!
+This markdown file outlines the steps in the code, explains the major actions taken, and includes the relevant code for training a model using the `KPatel` package in R. 

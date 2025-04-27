@@ -8,3 +8,11 @@ To install the KPatel package from GitHub, you will need to have the `devtools` 
 
 ```r
 install.packages("devtools")
+
+Then, use devtools::install_github() to install my package. Replace yourusername/yourpackagename with the correct GitHub path:
+
+devtools::install_github("yourusername/KPatel")
+
+After installing, load the package with:
+
+library(KPatel)

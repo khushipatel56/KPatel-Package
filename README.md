@@ -2,17 +2,25 @@
 
 KPatel is an R package that offers tools for statistical modeling, machine learning, and data exploration. The package provides easy-to-use functions for regression, classification, hypothesis testing, association rule mining, and more.
 
-## Installation
+# Requirements
 
-1. To install the KPatel package from GitHub, you will need to have the `devtools` package installed. If you don't have it, you can install it as follows:
+Before installing the KPatel package, ensure that you have R and the necessary dependencies installed:
 
-```r
-install.packages("devtools")
+R (version 4.0 or higher recommended)
+devtools package
 
-2. Then, use devtools::install_github() to install my package. Replace yourusername/yourpackagename with the correct GitHub path:
+# Installation
 
-devtools::install_github("yourusername/KPatel")
+To install the KPatel package from GitHub, follow these steps:
+
+1. Install the devtools package if you don't have it already:
+
+   install.packages("devtools")
+
+2. Use devtools::install_github() to install the KPatel package. Replace yourusername with your actual GitHub username:
+
+   devtools::install_github("yourusername/KPatel")
 
 3. After installing, load the package with:
 
-library(KPatel)
+   library(KPatel)

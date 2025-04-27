@@ -4,15 +4,15 @@ KPatel is an R package that offers tools for statistical modeling, machine learn
 
 ## Installation
 
-To install the KPatel package from GitHub, you will need to have the `devtools` package installed. If you don't have it, you can install it as follows:
+1. To install the KPatel package from GitHub, you will need to have the `devtools` package installed. If you don't have it, you can install it as follows:
 
 ```r
 install.packages("devtools")
 
-Then, use devtools::install_github() to install my package. Replace yourusername/yourpackagename with the correct GitHub path:
+2. Then, use devtools::install_github() to install my package. Replace yourusername/yourpackagename with the correct GitHub path:
 
 devtools::install_github("yourusername/KPatel")
 
-After installing, load the package with:
+3. After installing, load the package with:
 
 library(KPatel)

@@ -7,25 +7,9 @@ output: html_document
 
 ```{r setup, include=FALSE}
 # Load necessary libraries
+# Load necessary libraries
 library(KPatel)
 library(dplyr)
-
-# Prepare data
-mtcars_clean <- mtcars %>%
-  mutate(cyl = as.factor(cyl),
-         gear = as.factor(gear))
-
-head(mtcars_clean)
-
-# Perform S4 Chi-Square Test using the HypothesisTestResult class from KPatel package
-chi_result <- new("HypothesisTestResult", 
-                  data = mtcars_clean, 
-                  var1 = "cyl", 
-                  var2 = "gear", 
-                  test_type = "chisq.test")
-
-# Show result using the show method for the class
-show(chi_result)
 
 # Define the S4 class for hypothesis testing results
 setClass("HypothesisTestResult",
@@ -60,3 +44,19 @@ setMethod("show", "HypothesisTestResult", function(object) {
   print(object@result)
 })
 
+# Prepare data
+mtcars_clean <- mtcars %>%
+  mutate(cyl = as.factor(cyl),
+         gear = as.factor(gear))
+
+head(mtcars_clean)
+
+# Perform S4 Chi-Square Test using the HypothesisTestResult class from KPatel package
+chi_result <- new("HypothesisTestResult", 
+                  data = mtcars_clean, 
+                  var1 = "cyl", 
+                  var2 = "gear", 
+                  test_type = "chisq.test")
+
+# Show result using the show method for the class
+show(chi_result)

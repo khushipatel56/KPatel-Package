@@ -7,9 +7,17 @@ output: html_document
 
 ```{r setup, include=FALSE}
 # Load necessary libraries
-# Load necessary libraries
 library(KPatel)
 library(dplyr)
+library(ggplot2)
+
+# Prepare data
+mtcars_clean <- mtcars %>%
+  mutate(cyl = as.factor(cyl),
+         gear = as.factor(gear))
+
+# View first few rows of the cleaned data
+head(mtcars_clean)
 
 # Define the S4 class for hypothesis testing results
 setClass("HypothesisTestResult",
@@ -35,7 +43,7 @@ setMethod("initialize", "HypothesisTestResult",
             # Perform the chi-square test
             .Object@result <- chisq.test(tbl)
             
-            .Object
+            return(.Object)  # Ensure the object is returned
           })
 
 # Define the show method for displaying chi-square test results
@@ -44,14 +52,7 @@ setMethod("show", "HypothesisTestResult", function(object) {
   print(object@result)
 })
 
-# Prepare data
-mtcars_clean <- mtcars %>%
-  mutate(cyl = as.factor(cyl),
-         gear = as.factor(gear))
-
-head(mtcars_clean)
-
-# Perform S4 Chi-Square Test using the HypothesisTestResult class from KPatel package
+# Perform S4 Chi-Square Test using the HypothesisTestResult class
 chi_result <- new("HypothesisTestResult", 
                   data = mtcars_clean, 
                   var1 = "cyl", 
@@ -60,3 +61,21 @@ chi_result <- new("HypothesisTestResult",
 
 # Show result using the show method for the class
 show(chi_result)
+
+# Create the contingency table
+tbl <- table(mtcars_clean$cyl, mtcars_clean$gear)
+
+# Convert the contingency table to a data frame for ggplot
+tbl_df <- as.data.frame(tbl)
+
+# Plot the contingency table as a heatmap using ggplot2
+ggplot(tbl_df, aes(x = Var1, y = Var2, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "blue") +
+  labs(
+    title = "Contingency Table Heatmap: cyl vs gear",
+    x = "Number of Cylinders",
+    y = "Number of Gears",
+    fill = "Frequency"
+  ) +
+  theme_minimal()

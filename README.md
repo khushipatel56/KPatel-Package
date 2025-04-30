@@ -17,10 +17,10 @@ To install the KPatel package from GitHub, follow these steps:
 
    install.packages("devtools")
 
-2. Use devtools::install_github() to install the KPatel package. Replace yourusername with your actual GitHub username:
+2. Use devtools::install_github() to install the KPatel package. Replace yourusername with GitHub username:
 
-   devtools::install_github("khushipatel56/KPatel-Package")
+   devtools::install_github("khushipatel56/KPatel")
 
 3. After installing, load the package with:
 
-   library(KPatel-Package)
+   library(KPatel)

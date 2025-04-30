@@ -1,10 +1,10 @@
-# Exporting functions
-export(regression_summary)
-export(classification_model)
-export(hypothesis_test)
+# Exporting existing functions
 export(association_rules)
+export(categorize_data)
 export(eda_summary)
-export(kmodel)
+export(test_hypothesis)
+export(train_model)
+export(visualize_data)
 
 # Importing required packages
 import(ggplot2)
@@ -15,8 +15,5 @@ import(car)
 import(caret)
 import(randomForest)
 
-# Register S3 methods (if needed)
-S3method(print, kmodel)
-
-# Optionally, export other internal functions if needed
-# export(internal_function)
+# Optionally register S3 methods if implemented
+# S3method(print, kmodel)

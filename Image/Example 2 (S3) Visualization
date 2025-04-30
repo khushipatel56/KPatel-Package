@@ -22,7 +22,7 @@ lm_model <- train_model(
 )
 
 # Show the model summary
-summary(lm_model@model$finalModel)
+summary(lm_model$finalModel)
 
 # Make predictions on the training data
 predictions <- predict(lm_model, newdata = mtcars)

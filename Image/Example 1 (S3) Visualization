@@ -7,35 +7,51 @@ output: html_document
 
 ```{r setup, include=FALSE}
 # Load necessary libraries
-library(KPatel)
+library(tidyr)
+library(dplyr)
 library(ggplot2)
+library(KPatel)  # Make sure this is installed and available
 
-# Show basic iris data
+# Check the original data
 head(iris)
-summary(iris$Sepal.Length)
+
+# Rename the single "Raw" column for convenience
+names(iris)[1] <- "Raw"
+
+# Split the "Raw" column into individual numeric columns
+iris_clean <- iris %>%
+  separate(Raw, into = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species"), sep = ",") %>%
+  mutate(across(c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width), as.numeric))
+
+# Check the cleaned data
+head(iris_clean)
+
+# Summary of Sepal.Length
+summary(iris_clean$Sepal.Length)
 
 # Define bins and labels
 bins <- c(4.0, 5.5, 6.5, 8.0)
 labels <- c("Short", "Medium", "Long")
 
-# Apply the categorize_data function from your package
+# Apply categorize_data from KPatel
 iris_categorized <- categorize_data(
-  data = iris,
+  data = iris_clean,
   column = "Sepal.Length",
   bins = bins,
   labels = labels
 )
 
-# View categorized result
+# View result
 head(iris_categorized[, c("Sepal.Length", "Sepal.Length_category")])
 
+# Create bar plot
 ggplot(iris_categorized, aes(x = Sepal.Length_category, fill = Species)) +
   geom_bar(position = "dodge") +
   labs(title = "Sepal Length Categories by Species",
        x = "Category", y = "Count") +
   theme_minimal()
 
-# Define S3 constructor
+# Define custom S3 constructor
 create_k_summary <- function(x) {
   structure(list(
     mean = mean(x),
@@ -45,7 +61,7 @@ create_k_summary <- function(x) {
   ), class = "k_summary")
 }
 
-# Define print method
+# Define print method for 'k_summary'
 print.k_summary <- function(obj) {
   cat("K Summary for Numeric Vector\n")
   cat("----------------------------\n")
@@ -56,5 +72,5 @@ print.k_summary <- function(obj) {
 }
 
 # Create and print summary
-sepal_summary <- create_k_summary(iris$Sepal.Length)
+sepal_summary <- create_k_summary(iris_clean$Sepal.Length)
 print(sepal_summary)

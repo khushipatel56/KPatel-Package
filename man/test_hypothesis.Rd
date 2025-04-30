@@ -35,5 +35,5 @@ test_hypothesis(df, "value", "value", test_type = "t.test")
 test_hypothesis(df, "group", "category", test_type = "chisq.test")
 }
 \author{
-Your Name
+Khushi Patel
 }

@@ -6,7 +6,6 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-# Load necessary libraries
 # Load libraries
 library(tidyverse)  # Includes dplyr, tidyr, ggplot2
 library(KPatel)

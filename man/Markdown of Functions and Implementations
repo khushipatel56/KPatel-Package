@@ -1,0 +1,68 @@
+# Overview of R Scripts: Major Steps
+
+This document outlines the major steps taken by each R function in the provided scripts.
+
+---
+
+## 1. `association_rules.R` - **Generate Association Rules**
+
+### Major Steps
+1. Coerce input data into a `transactions` object.
+2. Apply the Apriori algorithm using `arules::apriori()` with specified support and confidence.
+3. Return the generated association rules.
+
+---
+
+## 2. `categorize_data.R` - **Categorize Data Column**
+
+### Major Steps
+1. Create a new column name by appending "_category" to the original column name.
+2. Use `cut()` to divide the numeric column into bins with labels.
+3. Add the categorized column to the data frame.
+4. Return the modified data frame.
+
+---
+
+## 3. `eda_summary.R` - **Exploratory Data Summary**
+
+### Major Steps
+1. Compute summary statistics of the data using `summary()`.
+2. Capture structure information using `str()` and `capture.output()`.
+3. Return both summary and structure in a list.
+
+---
+
+## 4. `test_hypothesis.R` - **Hypothesis Testing**
+
+### Major Steps
+1. Check which test type is specified: `"t.test"` or `"chisq.test"`.
+2. If `"t.test"`: Perform t-test between the two numeric variables.
+3. If `"chisq.test"`: Create a contingency table and run chi-square test.
+4. Return the result of the selected test.
+5. Throw an error if an unsupported test type is given.
+
+---
+
+## 5. `train_model.R` - **Train Predictive Model**
+
+### Major Steps
+1. Call `caret::train()` using the specified formula, data, method, and optional tuning grid.
+2. Return the trained model object.
+
+---
+
+## 6. `visualize_data.R` - **Visualize Data**
+
+### Major Steps
+1. Depending on the specified `type`, choose the correct `ggplot2` geom:
+   - `"scatter"` → `geom_point()`
+   - `"bar"` → `geom_bar()`
+   - `"boxplot"` → `geom_boxplot()`
+2. Apply aesthetics using `aes_string()` to handle variable inputs.
+3. Add minimal theming with `theme_minimal()`.
+4. Return the constructed ggplot object.
+5. Throw an error for unsupported plot types.
+
+---
+
+**End of Steps Overview**

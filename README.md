@@ -13,7 +13,7 @@ devtools package
 
 To install the KPatel package from GitHub, follow these steps:
 
-1. Install the devtools package if you don't have it already:
+1. Install the devtools package if you do not have it already:
 
    install.packages("devtools")
 

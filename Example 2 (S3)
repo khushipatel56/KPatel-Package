@@ -10,8 +10,11 @@ output: html_document
 library(KPatel)
 library(ggplot2)
 
-# Restore original mtcars dataset
+# Explore mtcars dataset
 mtcars <- datasets::mtcars
+
+head(mtcars)
+summary(mtcars)
 
 # Train the model using the train_model function from KPatel
 lm_model <- train_model(

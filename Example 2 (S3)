@@ -10,34 +10,32 @@ output: html_document
 library(KPatel)
 library(ggplot2)
 
-# Show basic mtcars data
-head(mtcars)
-summary(mtcars)
+# Restore original mtcars dataset
+mtcars <- datasets::mtcars
 
 # Train the model using the train_model function from KPatel
 lm_model <- train_model(
   formula = mpg ~ .,
   data = mtcars,
-  method = "lm" # You can change to other models (e.g., "rf" for random forest)
+  method = "lm" # Linear model
 )
 
 # Print model summary
 summary(lm_model$finalModel)
 
-# Make predictions using the trained model
+# Make predictions
 predictions <- predict(lm_model, newdata = mtcars)
 
-# Create a comparison data frame for actual vs predicted values
+# Create comparison dataframe
 results <- data.frame(
   Actual = mtcars$mpg,
   Predicted = predictions
 )
 
-# Plot actual vs predicted values
+# Plot actual vs predicted
 ggplot(results, aes(x = Actual, y = Predicted)) +
   geom_point(color = "blue", size = 3) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
   labs(title = "Actual vs Predicted MPG",
        x = "Actual MPG", y = "Predicted MPG") +
   theme_minimal()
-

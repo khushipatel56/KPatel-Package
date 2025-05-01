@@ -7,9 +7,9 @@ output: html_document
 
 ```{r setup, include=FALSE}
 # Load libraries
-import(ggplot2)
-import(dplyr)
-import(tidyr) 
+library(ggplot2)
+library(dplyr)
+library(tidyr)
 library(KPatel)
 
 # Load and inspect the raw iris data

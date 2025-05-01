@@ -7,7 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 # Load necessary libraries
-library(tidyverse)
+import(ggplot2)
+import(tidyr)
 library(KPatel)  # Make sure this is installed and available
 
 # Check the original data

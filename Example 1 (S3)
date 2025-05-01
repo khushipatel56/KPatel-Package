@@ -15,8 +15,7 @@ library(KPatel)
 # Load and inspect the raw iris data
 head(iris)
 
-# If your iris data came from a CSV file and looks like one long string per row, simulate it like this:
-# Rename the weird column name for convenience
+# Rename the column name for convenience
 names(iris)[1] <- "Raw"
 
 # Separate the single "Raw" column into proper columns

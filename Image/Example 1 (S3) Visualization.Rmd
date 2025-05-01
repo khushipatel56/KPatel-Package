@@ -8,11 +8,13 @@ output: html_document
 ## Major Steps in the Code
 
 1. **Loading Libraries**:
-    - The `KPatel` and `ggplot2` libraries are loaded to use the functions and plotting capabilities.
+    - Plotting capabilities, data manipulation tools, and custom functions are accessed via loading the 'ggplot2', 'dplyr', 'tidyr', and  'KPatel' libraries.
   
     ```{r setup, include=FALSE}
-    library(KPatel)
     library(ggplot2)
+    library(dplyr)
+    library(tidyr)
+    library(KPatel)
     ```
 
 2. **Exploring the Iris Dataset**:

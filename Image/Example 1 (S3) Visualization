@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 # Load necessary libraries
 import(ggplot2)
+import(dplyr)
 import(tidyr)
 library(KPatel)  # Make sure this is installed and available
 
